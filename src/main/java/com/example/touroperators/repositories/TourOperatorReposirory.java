@@ -1,9 +1,9 @@
-package com.example.touroperators.repositories.Abstract.SpringRepositories;
+package com.example.touroperators.repositories;
 
 import com.example.touroperators.models.TourOperator;
 import org.springframework.data.repository.Repository;
 
-public interface SpringTourOperatorReposirory extends Repository<TourOperator, Long> {
+public interface TourOperatorReposirory extends Repository<TourOperator, Long> {
 
     TourOperator save(TourOperator tourOperator);
 

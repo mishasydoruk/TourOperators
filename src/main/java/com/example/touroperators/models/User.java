@@ -17,12 +17,15 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @NotNull @NotBlank
+    @Column(name = "username", nullable = false, unique = true)
     private String userName;
 
     @NotNull @NotBlank
+    @Column(name = "lastname")
     private String lastName;
 
     @NotNull @NotBlank
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch= FetchType.EAGER)

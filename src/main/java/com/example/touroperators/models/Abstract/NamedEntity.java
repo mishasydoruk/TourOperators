@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public abstract class NamedEntity extends BaseEntity{
 
-    @Column(name="name")
+    @Column(name="name", nullable = false)
     @NotNull @NotBlank
     protected String name;
 
