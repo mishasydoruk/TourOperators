@@ -6,10 +6,13 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 public class CreateUserDTO implements BaseDTO {
+
+    private static final int minPasswordSize = 8;
 
     @NotNull @NotBlank
     String userName;
@@ -17,7 +20,7 @@ public class CreateUserDTO implements BaseDTO {
     @NotNull @NotBlank
     String lastName;
 
-    @NotNull @NotBlank
+    @NotNull @NotBlank @Size(min=minPasswordSize)
     String password;
 
 }

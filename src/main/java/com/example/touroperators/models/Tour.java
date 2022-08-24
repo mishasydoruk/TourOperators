@@ -16,10 +16,10 @@ public class Tour extends NamedEntity {
 
     @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(
-            name = "users_tours",
+            name = "tours_users",
             joinColumns = @JoinColumn(name = "tour_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    Set<User> invitedUsers = new HashSet<>();
+    Set<User> users = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name="tour_operator_id", nullable=false)

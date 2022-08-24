@@ -9,7 +9,7 @@ public interface UserRepository extends Repository<User, Long> {
 
     User getUserById(Long id);
 
-    User getUserByUsername(String username);
+    User getUserByUserName(String username);
 
     User deleteUserById(Long id);
 
