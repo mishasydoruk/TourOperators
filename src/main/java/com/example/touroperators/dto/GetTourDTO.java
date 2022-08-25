@@ -10,9 +10,10 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class UpdateTourDTO implements BaseDTO {
+public class GetTourDTO implements BaseDTO {
 
-    @NotNull @NotBlank
+    private Long id;
+
     String name;
 
     TourType tourType;

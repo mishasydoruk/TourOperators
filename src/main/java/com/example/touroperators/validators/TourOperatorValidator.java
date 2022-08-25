@@ -2,12 +2,13 @@ package com.example.touroperators.validators;
 
 import com.example.touroperators.dto.CreateTourOperatorDTO;
 import com.example.touroperators.exceptions.ServiceValidationError;
-import com.example.touroperators.models.TourOperator;
 import com.example.touroperators.repositories.TourOperatorReposirory;
 import com.example.touroperators.validators.Abstract.BaseValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
+@Component
 public class TourOperatorValidator implements BaseValidator {
 
     private final TourOperatorReposirory tourOperatorReposirory;

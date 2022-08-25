@@ -10,6 +10,8 @@ import com.example.touroperators.validators.TourValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TourService extends BaseService {
@@ -45,7 +47,8 @@ public class TourService extends BaseService {
         return tourRepository.save(tourInDb);
     }
 
-    public Tour deleteTourBuId(Long id){
+    public List<Tour> deleteTourBuId(Long id){
+
 
         return tourRepository.deleteTourById(id);
     }

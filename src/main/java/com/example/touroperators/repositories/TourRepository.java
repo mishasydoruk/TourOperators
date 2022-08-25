@@ -2,6 +2,9 @@ package com.example.touroperators.repositories;
 
 import com.example.touroperators.models.Tour;
 import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface TourRepository extends Repository<Tour, Long> {
 
@@ -11,5 +14,6 @@ public interface TourRepository extends Repository<Tour, Long> {
 
     Tour getTourByName(String name);
 
-    Tour deleteTourById(Long id);
+    @Transactional
+    List<Tour> deleteTourById(Long id);
 }

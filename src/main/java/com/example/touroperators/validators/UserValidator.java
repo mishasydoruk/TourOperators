@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Component
 @RequiredArgsConstructor
@@ -27,9 +29,18 @@ public class UserValidator implements BaseValidator {
         }
     }
 
+    public void validateMoreThan18Years(CreateUserDTO createUserDTO) throws ServiceValidationError {
+
+        if(Period.between(createUserDTO.getBirthday(), LocalDate.now()).getYears()<18){
+            throw new ServiceValidationError("bithday", "Age is less than 18 years");
+        }
+    }
+
     public CreateUserDTO validateCreate(CreateUserDTO createUserDTO) throws ServiceValidationError {
 
         validateAlreadyExists(createUserDTO);
+
+        validateMoreThan18Years(createUserDTO);
 
         return createUserDTO;
     }

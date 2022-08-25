@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TourOperatorService extends BaseService {
@@ -39,7 +41,8 @@ public class TourOperatorService extends BaseService {
         return tourOperatorReposirory.save(tourOperatorInDb);
     }
 
-    public TourOperator deleteTourOperatorById(Long id){
+    public List<TourOperator> deleteTourOperatorById(Long id){
+
         return tourOperatorReposirory.deleteTourOperatorById(id);
     }
 
