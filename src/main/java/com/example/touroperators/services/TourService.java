@@ -9,19 +9,31 @@ import com.example.touroperators.repositories.TourRepository;
 import com.example.touroperators.repositories.UserRepository;
 import com.example.touroperators.services.Abstract.BaseService;
 import com.example.touroperators.validators.TourValidator;
-import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TourService extends BaseService {
 
     private final TourRepository tourRepository;
     private final TourOperatorService tourOperatorService;
     private final TourValidator tourValidator;
     private final UserRepository userRepository;
+
+    public TourService(TourRepository tourRepository,
+                       TourOperatorService tourOperatorService,
+                       TourValidator tourValidator,
+                       UserRepository userRepository,
+                       ModelMapper modelMapper) {
+        super(modelMapper);
+
+        this.tourRepository = tourRepository;
+        this.tourOperatorService = tourOperatorService;
+        this.tourValidator = tourValidator;
+        this.userRepository = userRepository;
+    }
 
     public Tour createTour(CreateTourDTO createTourDTO) throws ServiceValidationError {
 

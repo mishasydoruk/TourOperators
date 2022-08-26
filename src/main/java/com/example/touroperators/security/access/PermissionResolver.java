@@ -21,7 +21,6 @@ public class PermissionResolver implements IPermissionResolver {
 
     private final TourOperatorService tourOperatorService;
 
-
     @Override
     public boolean hasUserPermission(Authentication authentication, Long userId) {
 
@@ -41,8 +40,6 @@ public class PermissionResolver implements IPermissionResolver {
                 .getUserByUserName(userDetails.getUsername())
                 .getTourOperator()
                 .getId().equals(tourOperatorId);
-
-
     }
 
     @Override

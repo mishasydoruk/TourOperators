@@ -9,6 +9,7 @@ import com.example.touroperators.repositories.TourRepository;
 import com.example.touroperators.repositories.UserRepository;
 import com.example.touroperators.services.Abstract.BaseService;
 import com.example.touroperators.validators.UserValidator;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -19,8 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class UserService extends BaseService {
 
     private final UserRepository userRepository;
@@ -28,6 +27,16 @@ public class UserService extends BaseService {
     private final UserValidator userValidator;
 
     private final PasswordEncoder passwordEncoder;
+
+    public UserService(ModelMapper modelMapper,
+                       UserRepository userRepository,
+                       UserValidator userValidator,
+                       PasswordEncoder passwordEncoder) {
+        super(modelMapper);
+        this.userRepository = userRepository;
+        this.userValidator = userValidator;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User createUser(CreateUserDTO createUserDTO) throws ServiceValidationError {
 
