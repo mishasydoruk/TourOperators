@@ -4,6 +4,8 @@ import com.example.touroperators.controllers.Abstract.BaseController;
 import com.example.touroperators.dto.CreateTourOperatorDTO;
 import com.example.touroperators.dto.GetTourOperatorDTO;
 import com.example.touroperators.dto.UpdateTourOperatorDTO;
+import com.example.touroperators.exceptions.NotFoundException;
+import com.example.touroperators.exceptions.ServiceValidationError;
 import com.example.touroperators.models.TourOperator;
 import com.example.touroperators.services.TourOperatorService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,7 @@ public class TourOperatorController extends BaseController {
     private final TourOperatorService tourOperatorService;
 
     @PostMapping("tour-operator/")
-    @SneakyThrows
-    public ResponseEntity<GetTourOperatorDTO> createTourOperator(@Valid @RequestBody CreateTourOperatorDTO createTourOperatorDTO){
+    public ResponseEntity<GetTourOperatorDTO> createTourOperator(@Valid @RequestBody CreateTourOperatorDTO createTourOperatorDTO) throws ServiceValidationError {
 
         TourOperator tourOperator = tourOperatorService.createTourOperator(createTourOperatorDTO);
 
@@ -33,12 +34,12 @@ public class TourOperatorController extends BaseController {
     }
 
     @GetMapping("tour-operator/{tourOperatorId}")
-    public ResponseEntity<GetTourOperatorDTO> getTourOperator(@PathVariable Long tourOperatorId){
+    public ResponseEntity<GetTourOperatorDTO> getTourOperator(@PathVariable Long tourOperatorId) throws NotFoundException {
 
         TourOperator tourOperator = tourOperatorService.getTourOperatorById(tourOperatorId);
 
         if(tourOperator == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("tourOperatorId", "Not found");
         }
 
         GetTourOperatorDTO getTourOperatorDTO = modelMapper.map(tourOperator, GetTourOperatorDTO.class);
@@ -47,12 +48,12 @@ public class TourOperatorController extends BaseController {
     }
 
     @PutMapping("tour-operator/{tourOperatorId}")
-    public ResponseEntity<GetTourOperatorDTO> updateTourOperator(@PathVariable Long tourOperatorId, @Valid @RequestBody UpdateTourOperatorDTO updateTourOperatorDTO){
+    public ResponseEntity<GetTourOperatorDTO> updateTourOperator(@PathVariable Long tourOperatorId, @Valid @RequestBody UpdateTourOperatorDTO updateTourOperatorDTO) throws NotFoundException {
 
         TourOperator tourOperator = tourOperatorService.getTourOperatorById(tourOperatorId);
 
         if(tourOperator==null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("tourOperatorId", "Not found");
         }
 
         TourOperator updatedTourOperator = tourOperatorService.updateTourOperator(tourOperator, updateTourOperatorDTO);
@@ -64,12 +65,12 @@ public class TourOperatorController extends BaseController {
     }
 
     @DeleteMapping("tour-operator/{tourOperatorId}")
-    public ResponseEntity<GetTourOperatorDTO> deleteTourOperator(@PathVariable Long tourOperatorId){
+    public ResponseEntity<GetTourOperatorDTO> deleteTourOperator(@PathVariable Long tourOperatorId) throws NotFoundException {
 
         List<TourOperator> tourOperators = tourOperatorService.deleteTourOperatorById(tourOperatorId);
 
         if(tourOperators.size()==0){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("tourOperatorId", "Not found");
         }
 
         GetTourOperatorDTO getTourOperatorDTO = modelMapper.map(tourOperators.get(0), GetTourOperatorDTO.class);

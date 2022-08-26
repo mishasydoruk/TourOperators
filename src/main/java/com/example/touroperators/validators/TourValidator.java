@@ -1,6 +1,8 @@
 package com.example.touroperators.validators;
 
 import com.example.touroperators.dto.CreateTourDTO;
+import com.example.touroperators.dto.UpdateTourDTO;
+import com.example.touroperators.dto.UpdateUserDTO;
 import com.example.touroperators.exceptions.ServiceValidationError;
 import com.example.touroperators.models.Tour;
 import com.example.touroperators.repositories.TourOperatorReposirory;
@@ -29,6 +31,13 @@ public class TourValidator implements BaseValidator {
     public CreateTourDTO validateCreate(CreateTourDTO createTourDTO) throws ServiceValidationError {
 
         validateTourOperatorExists(createTourDTO);
+
         return createTourDTO;
+    }
+
+    public UpdateTourDTO validateUpdate(UpdateTourDTO updateTourDTO){
+
+        //some validations... can't think of
+        return updateTourDTO;
     }
 }

@@ -14,12 +14,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TourOperatorService extends BaseService {
 
     private final TourOperatorReposirory tourOperatorReposirory;
 
     private final TourOperatorValidator tourOperatorValidator;
+
+    public TourOperatorService(TourOperatorReposirory tourOperatorReposirory,
+                               TourOperatorValidator tourOperatorValidator,
+                               ModelMapper modelMapper) {
+        super(modelMapper);
+        this.tourOperatorReposirory = tourOperatorReposirory;
+        this.tourOperatorValidator = tourOperatorValidator;
+    }
 
     public TourOperator createTourOperator(CreateTourOperatorDTO createTourOperatorDTO) throws ServiceValidationError {
 
@@ -36,7 +43,10 @@ public class TourOperatorService extends BaseService {
 
     public TourOperator updateTourOperator(TourOperator tourOperatorInDb, UpdateTourOperatorDTO updateTourOperatorDTO)
     {
-        modelMapper.map(updateTourOperatorDTO, tourOperatorInDb);
+        UpdateTourOperatorDTO validatedUpdateTourOperatorDTO =
+                tourOperatorValidator.validateUpdate(updateTourOperatorDTO);
+
+        modelMapper.map(validatedUpdateTourOperatorDTO, tourOperatorInDb);
 
         return tourOperatorReposirory.save(tourOperatorInDb);
     }
