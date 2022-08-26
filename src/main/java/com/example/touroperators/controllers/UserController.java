@@ -3,6 +3,8 @@ package com.example.touroperators.controllers;
 import com.example.touroperators.controllers.Abstract.BaseController;
 import com.example.touroperators.dto.GetUserDTO;
 import com.example.touroperators.dto.UpdateUserDTO;
+import com.example.touroperators.exceptions.NotFoundException;
+import com.example.touroperators.exceptions.ServiceValidationError;
 import com.example.touroperators.models.User;
 import com.example.touroperators.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +22,12 @@ public class UserController extends BaseController {
     private final UserService userService;
 
     @GetMapping("user/{userId}")
-    public ResponseEntity<GetUserDTO> getUser(@PathVariable Long userId) {
+    public ResponseEntity<GetUserDTO> getUser(@PathVariable Long userId) throws NotFoundException {
 
         User user = userService.getUserById(userId);
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("userId", "Not found");
         }
 
         GetUserDTO getUserDTO = modelMapper.map(user, GetUserDTO.class);
@@ -34,12 +36,12 @@ public class UserController extends BaseController {
     }
 
     @PutMapping("user/{userId}")
-    public ResponseEntity<GetUserDTO> updateUser(@PathVariable Long userId, @Valid @RequestBody UpdateUserDTO updateUserDTO){
+    public ResponseEntity<GetUserDTO> updateUser(@PathVariable Long userId, @Valid @RequestBody UpdateUserDTO updateUserDTO) throws NotFoundException, ServiceValidationError {
 
         User user = userService.getUserById(userId);
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("userId", "Not found");
         }
 
         User updatedUser = userService.updateUser(user, updateUserDTO);
@@ -50,12 +52,12 @@ public class UserController extends BaseController {
     }
 
     @DeleteMapping("user/{userId}")
-    public ResponseEntity<GetUserDTO> deleteUser(@PathVariable Long userId){
+    public ResponseEntity<GetUserDTO> deleteUser(@PathVariable Long userId) throws NotFoundException {
 
         List<User> users = userService.deleteUserById(userId);
 
         if (users.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("userId", "Not found");
         }
 
         GetUserDTO getUserDTO = modelMapper.map(users.get(0), GetUserDTO.class);

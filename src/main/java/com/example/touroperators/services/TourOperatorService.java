@@ -36,7 +36,10 @@ public class TourOperatorService extends BaseService {
 
     public TourOperator updateTourOperator(TourOperator tourOperatorInDb, UpdateTourOperatorDTO updateTourOperatorDTO)
     {
-        modelMapper.map(updateTourOperatorDTO, tourOperatorInDb);
+        UpdateTourOperatorDTO validatedUpdateTourOperatorDTO =
+                tourOperatorValidator.validateUpdate(updateTourOperatorDTO);
+
+        modelMapper.map(validatedUpdateTourOperatorDTO, tourOperatorInDb);
 
         return tourOperatorReposirory.save(tourOperatorInDb);
     }

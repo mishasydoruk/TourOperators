@@ -1,14 +1,12 @@
 package com.example.touroperators.enums;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.SerializedName;
 
-
 public enum UserRole {
-    @SerializedName("Customer")
-    Customer,
-    @SerializedName("Worker")
-    Worker,
-    @SerializedName("Owner")
-    Owner
+    @SerializedName("ROLE_Customer")
+    ROLE_Customer,
+    @SerializedName("ROLE_Worker")
+    ROLE_Worker,
+    @SerializedName("ROLE_Owner")
+    ROLE_Owner
 }

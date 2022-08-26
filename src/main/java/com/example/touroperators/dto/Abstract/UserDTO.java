@@ -1,8 +1,5 @@
-package com.example.touroperators.dto;
+package com.example.touroperators.dto.Abstract;
 
-import com.example.touroperators.dto.Abstract.BaseDTO;
-import com.example.touroperators.dto.Abstract.UserDTO;
-import com.example.touroperators.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +12,16 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class UpdateUserDTO extends UserDTO {
+public abstract class UserDTO implements BaseDTO{
 
-    @NotBlank @Size(min=minPasswordSize)
-    protected String password;
+    protected static final int minPasswordSize = 8;
+
+    @NotNull @NotBlank
+    protected String lastName;
+
+    @NotNull
+    @Past
+    @JsonFormat(pattern="yyyy-MM-dd")
+    protected LocalDate birthday;
+
 }
